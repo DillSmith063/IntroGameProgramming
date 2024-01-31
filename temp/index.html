@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Encyclopedia</title>
+        <style>
+            *{
+                margin:0
+
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="canv">
+            
+        </canvas>
+        <script>
+            let a = 0
+
+            function gameLoop(){
+                update()
+                draw()
+            }
+
+            function update(){
+                a++
+            }
+
+            function draw(){
+                let canvas  = document.querySelector('#canv')
+                let ctx = canvas.getContext("2d")
+
+                ctx.fillStyle = "gray"
+                ctx.beginPath()
+                ctx.rect(0,0,canvas.width,canvas.height)
+                ctx.fill()
+
+                ctx.beginPath()
+                ctx.fillStyle = "green"
+                ctx.strokeStyle = "purple"
+                ctx.lineWidth = 5
+                ctx.arc(50+a, 50, 50, 0, Math.PI*2)
+                ctx.fill()
+                ctx.stroke()
+            }
+
+            function setup(){
+                let canvas  = document.querySelector('#canv')
+                let ctx = canvas.getContext("2d")
+
+                canvas.width = window.innerWidth
+                canvas.height = window.innerHeight
+            }
+            
+            setup()
+            setInterval(gameLoop, 100)
+
+        </script>
+    </body>
+</html>
