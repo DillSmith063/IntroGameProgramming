@@ -1,59 +1,123 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Encyclopedia</title>
-        <style>
-            *{
-                margin:0
 
+<head>
+    <title>Game Time</title>
+    <style>
+        * {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canv">
+
+    </canvas>
+    <script>
+        let x = 0
+        let y = 0
+        let score = 0
+        let keysDown = []
+        let isDead = false
+
+        function gameLoop() {
+            update()
+            draw()
+        }
+
+        function update() {
+            //a++
+            let speed = 100
+
+            if (keysDown.includes("ArrowLeft")) {
+                x -= speed / fps
             }
-        </style>
-    </head>
-    <body>
-        <canvas id="canv">
-            
-        </canvas>
-        <script>
-            let a = 0
 
-            function gameLoop(){
-                update()
-                draw()
+            if (keysDown.includes("ArrowRight")) {
+                x += speed / fps
             }
 
-            function update(){
-                a++
+            if (keysDown.includes("ArrowUp")) {
+                y -= speed / fps
             }
 
-            function draw(){
-                let canvas  = document.querySelector('#canv')
-                let ctx = canvas.getContext("2d")
+            if (keysDown.includes("ArrowDown")) {
+                y += speed / fps
+            }
 
-                ctx.fillStyle = "gray"
+            score++
+
+            if (x < 0) {
+                isDead = true
+            }
+        }
+
+        function draw() {
+            let canvas = document.querySelector('#canv')
+            let ctx = canvas.getContext("2d")
+
+
+            if (!isDead) {
+                ctx.fillStyle = "lightgray"
                 ctx.beginPath()
-                ctx.rect(0,0,canvas.width,canvas.height)
+                ctx.rect(0, 0, canvas.width, canvas.height)
                 ctx.fill()
 
-                ctx.beginPath()
+
+                //Draw the circle with a green interior
+                //and purple outline
+                ctx.beginPath();
                 ctx.fillStyle = "green"
                 ctx.strokeStyle = "purple"
                 ctx.lineWidth = 5
-                ctx.arc(50+a, 50, 50, 0, Math.PI*2)
+                ctx.arc(50 + x, 50 +y, 50, 50, 0, Math.PI * 2)
                 ctx.fill()
                 ctx.stroke()
+            } else {
+                ctx.fill = "black"
+                ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+                ctx.fillStyle = "red"
+                ctx.font = "30px Comic Sans MS"
+                ctx.fillText("you Died", 30, 30)
             }
 
-            function setup(){
-                let canvas  = document.querySelector('#canv')
-                let ctx = canvas.getContext("2d")
+        }
 
-                canvas.width = window.innerWidth
-                canvas.height = window.innerHeight
+        function keyup(e) {
+            //console.log(e)
+            let index = keysDown.indexOf(e.code)
+            keysDown.splice(index, 1)
+        }
+
+        function keydown(e) {
+            //console.log(e)
+            if (!keysDown.includes(e.code)) {
+                keysDown.push(e.code)
             }
-            
-            setup()
-            setInterval(gameLoop, 100)
+        }
 
-        </script>
-    </body>
+        function setup() {
+            document.addEventListener("keydown", keydown)
+            document.addEventListener("keyup", keyup)
+
+            let canvas = document.querySelector('#canv')
+            let ctx = canvas.getContext("2d")
+
+            canvas.width = window.innerWidth
+            canvas.height = window.innerHeight
+        }
+
+        setup()
+
+        let ms = 20
+        let fps = 1000 / ms
+
+        setInterval(gameLoop, ms)
+
+    </script>
+</body>
+
 </html>
