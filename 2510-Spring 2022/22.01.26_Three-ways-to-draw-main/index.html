@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <title>My first html</title>
+    <style>
+        * {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+
+</head>
+
+<body>
+    <canvas id="canv">
+
+    </canvas>
+    <script>
+        "use strict"
+
+        let canvas = document.querySelector("#canv");
+        let ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        ctx.fillStyle = "black"
+        ctx.strokeStyle = "green"
+        //ctx.lineWidth = 10
+
+        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+
+        let startX = 100;
+        let startY = 100;
+        let offsetX = 50;
+        let width = 10;
+        let height = 50;
+        let max = 10;
+        for (let i = 0; i < max; i++) {
+            ctx.fillStyle = "red"
+            ctx.strokeStyle = "white"
+            let h = (1 - (i/max)) * height
+            ctx.fillRect(startX + i*offsetX, startY - 50 - h/2, width+i*10, h)
+            ctx.strokeRect(startX + i*offsetX, startY - 50 - h/2, width+i*10, h)
+
+        }
+
+        // ctx.strokeRect(10, 1, ctx.canvas.width, ctx.canvas.height);
+        // ctx.fillStyle = "purple"
+        // ctx.fillRect(100, 100, 100, 100);
+
+        // //Circle
+        // ctx.beginPath()
+        // ctx.arc(300,300,50,0,Math.PI*2)
+        // ctx.fill();
+        // ctx.stroke();
+
+        // //Line
+        // ctx.beginPath()
+        // ctx.moveTo(400,400);
+        // ctx.lineTo(500,500)
+        // // ctx.fill();
+        // ctx.stroke();
+
+
+
+
+    </script>
+</body>
+
+</html>

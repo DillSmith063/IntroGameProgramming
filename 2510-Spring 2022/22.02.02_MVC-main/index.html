@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My first html</title>
+    <link href="./style.css" rel="stylesheet">
+</head>
+
+<body>
+    <canvas id="canv"></canvas>
+    <script src="scripts.js"></script>
+    <script src="time.js"></script>
+    <script>
+        "use strict"
+
+        let mouseIsDown = false;
+        document.addEventListener("mousedown", mouseDown);
+        document.addEventListener("mouseup", mouseUp);
+
+
+        function mouseDown() {
+            mouseIsDown = true;
+        }
+
+        function mouseUp() {
+            mouseIsDown = false;
+        }
+
+
+
+        let { canvas, ctx } = getCanvas();
+
+        let rectangles = []
+
+        let startX = 100;
+        let startY = 400;
+        let offsetX = 50;
+        let width = 10;
+        let height = 50;
+        let max = 30;
+        let maxWidth = 400;
+
+        //Define the model
+        for (let i = 0; i < max; i++) {
+
+            let toAdd = {};
+            let percent = i / max;
+            let offset = maxWidth * percent;
+            let h = (1 - (i / max)) * height
+
+            toAdd.x = startX + offset;
+            toAdd.y = startY - 50 - h / 2;
+            toAdd.w = width + i * 10;
+            toAdd.h = h;
+
+            toAdd.r = 255;
+            toAdd.g = percent * 255;
+            toAdd.b = 0;
+
+            rectangles.push(toAdd)
+        }
+
+        function tick() {
+            update()
+            draw()
+        }
+
+        function update() {
+            let i = 0
+            for (let rectangle of rectangles) {
+                
+                rectangle.b = 0;
+                if (mouseIsDown)
+                    rectangle.b = 255;
+
+                let h = (1 - (i / rectangles.length)) * height
+
+                let percent = i / max;
+                let percentSquared = percent * percent;
+
+                rectangle.y = startY - 50 - h / 2 + ease(Time.timePassed) * 50 * percentSquared;
+                i++;
+            }
+        }
+
+        function draw() {
+
+            ctx.fillStyle = "black"
+            ctx.strokeStyle = "green"
+            ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            let i = 0;
+            for (let rectangle of rectangles) {
+                let rectangle = rectangles[i];
+
+                ctx.fillStyle = `rgb(${rectangle.r},${rectangle.g},${rectangle.b})`
+                ctx.strokeStyle = "white"
+
+                ctx.beginPath()
+                ctx.rect(
+                    rectangle.x,
+                    rectangle.y,
+                    rectangle.w,
+                    rectangle.h
+                )
+                ctx.fill();
+                ctx.stroke();
+                i++;
+
+            }
+            Time.timePassed += Time.secondsBetweenFrame;
+         }
+
+        setInterval(tick, Time.millisecondsBetweenFrames)
+
+    </script>
+</body>
+
+</html>

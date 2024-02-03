@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <title>My first html</title>
+    <style>
+        * {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+
+</head>
+
+<body>
+    <canvas id="canv">
+
+    </canvas>
+    <script>
+        "use strict"
+
+        let canvas = document.querySelector("#canv");
+        let ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        ctx.fillStyle = "blue"
+        ctx.strokeStyle = "green"
+        ctx.lineWidth = 10
+        
+        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.strokeRect(10, 1, ctx.canvas.width, ctx.canvas.height);
+        ctx.fillStyle = "purple"
+        ctx.fillRect(100, 100, 100, 100);
+
+
+
+
+    </script>
+</body>
+
+</html>
