@@ -1,25 +1,13 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Game Time</title>
-    <link href = "style.css" rel = stylesheet>
-</head>
-
-<body>
-    <canvas id="canv">
-
-    </canvas>
-    <script src = "script.js">
-        /*let x = 0
+        let x = 0
         let y = 0
         let score = 0
         let keysDown = []
         let isDead = false
+        let currentShape = 'circle'
 
         function gameLoop() {
             update()
-            draw()
+            drawShape()
         }
 
         function update() {
@@ -42,6 +30,10 @@
                 y += speed / fps
             }
 
+            if(keysDown.includes("Space")){
+                currentShape = currentShape === 'circle' ? 'rectangle' : 'circle'
+            }
+
             score++
 
             if (x < 0) {
@@ -49,7 +41,7 @@
             }
         }
 
-        function draw() {
+        function drawShape() {
             let canvas = document.querySelector('#canv')
             let ctx = canvas.getContext("2d")
 
@@ -63,13 +55,22 @@
 
                 //Draw the circle with a green interior
                 //and purple outline
-                ctx.beginPath();
-                ctx.fillStyle = "green"
-                ctx.strokeStyle = "purple"
-                ctx.lineWidth = 5
-                ctx.arc(50 + x, 50 +y, 50, 50, 0, Math.PI * 2)
-                ctx.fill()
-                ctx.stroke()
+                if(currentShape === 'circle'){
+                    ctx.beginPath();
+                    ctx.fillStyle = "green"
+                    ctx.strokeStyle = "purple"
+                    ctx.lineWidth = 5
+                    ctx.arc(50 + x, 50 +y, 50, 50, 0, Math.PI * 2)
+                    ctx.fill()
+                    ctx.stroke()
+                } else if(currentShape === 'rectangle') {
+                    ctx.beginPath();
+                    ctx.fillStyle = "red"
+                    ctx.strokeStyle = "yellow"
+                    ctx.lineWidth = 5
+                    ctx.fillRect(50 + x - 50, 50 + y - 50, 100, 100)
+                    ctx.strokeRect(50 + x - 50, 50 + y - 50, 100, 100)
+                }
             } else {
                 ctx.fill = "black"
                 ctx.fillRect(0, 0, canvas.width, canvas.height)
@@ -81,14 +82,23 @@
 
         }
 
+        function getRandomColor() {
+            const letters = "012345689ABCDEF"
+            let color = "#"
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)]
+            }
+            return color
+        }
+
         function keyup(e) {
-            //console.log(e)
+            console.log(e)
             let index = keysDown.indexOf(e.code)
             keysDown.splice(index, 1)
         }
 
         function keydown(e) {
-            //console.log(e)
+            console.log(e)
             if (!keysDown.includes(e.code)) {
                 keysDown.push(e.code)
             }
@@ -110,9 +120,4 @@
         let ms = 20
         let fps = 1000 / ms
 
-        setInterval(gameLoop, ms)*/
-
-    </script>
-</body>
-
-</html>
+        setInterval(gameLoop, ms)
