@@ -2,11 +2,14 @@
         let y = 0
         let score = 0
         let keysDown = []
+        let keysDownThisFrame = []
+        let keysUpThisFrame = []
         let isDead = false
         let currentShape = 'circle'
 
         function gameLoop() {
             update()
+            //drawLevel()
             drawShape()
         }
 
@@ -14,23 +17,23 @@
             //a++
             let speed = 100
 
-            if (keysDown.includes("ArrowLeft")) {
+            if (keysDownThisFrame.includes("KeyA")) {
                 x -= speed / fps
             }
 
-            if (keysDown.includes("ArrowRight")) {
+            if (keysDownThisFrame.includes("KeyD")) {
                 x += speed / fps
             }
 
-            if (keysDown.includes("ArrowUp")) {
+            if (keysDownThisFrame.includes("KeyW")) {
                 y -= speed / fps
             }
 
-            if (keysDown.includes("ArrowDown")) {
+            if (keysDownThisFrame.includes("KeyS")) {
                 y += speed / fps
             }
 
-            if(keysDown.includes("Space")){
+            if(keysDownThisFrame.includes("Space")){
                 currentShape = currentShape === 'circle' ? 'rectangle' : 'circle'
             }
 
@@ -39,7 +42,30 @@
             if (x < 0) {
                 isDead = true
             }
+
+            keysDownThisFrame = []
+            keysUpThisFrame = []
         }
+
+        /*function drawLevel() {
+            if(!isDead){
+                let canvas = document.querySelector('#canv')
+                let ctx = canvas.getContext("2d")
+
+                ctx.fillStyle = "lightgray"
+                ctx.beginPath()
+                ctx.rect(0, 0, canvas.width, canvas.height)
+                ctx.fill()
+            } else {
+                ctx.fill = "black"
+                ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+                ctx.fillStyle = "red"
+                ctx.font = "30px Comic Sans MS"
+                ctx.fillText("you Died", 30, 30)
+            }
+            
+        }*/
 
         function drawShape() {
             let canvas = document.querySelector('#canv')
@@ -60,7 +86,7 @@
                     ctx.fillStyle = "green"
                     ctx.strokeStyle = "purple"
                     ctx.lineWidth = 5
-                    ctx.arc(50 + x, 50 +y, 50, 50, 0, Math.PI * 2)
+                    ctx.arc(50 + x, 50 + y, 50, 50, 0, Math.PI * 2)
                     ctx.fill()
                     ctx.stroke()
                 } else if(currentShape === 'rectangle') {
@@ -80,33 +106,43 @@
                 ctx.fillText("you Died", 30, 30)
             }
 
+            /*if(currentShape === 'circle'){
+                ctx.beginPath();
+                ctx.fillStyle = "green"
+                ctx.strokeStyle = "purple"
+                ctx.lineWidth = 5
+                ctx.arc(50 + x, 50 +y, 50, 50, 0, Math.PI * 2)
+                ctx.fill()
+                ctx.stroke()
+            } else if(currentShape === 'rectangle') {
+                ctx.beginPath();
+                ctx.fillStyle = "red"
+                ctx.strokeStyle = "yellow"
+                ctx.lineWidth = 5
+                ctx.fillRect(50 + x - 50, 50 + y - 50, 100, 100)
+                ctx.strokeRect(50 + x - 50, 50 + y - 50, 100, 100)
+            }*/
+
         }
 
-        function getRandomColor() {
-            const letters = "012345689ABCDEF"
-            let color = "#"
-            for (let i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)]
-            }
-            return color
-        }
-
-        function keyup(e) {
+        function keyUp(e) {
             console.log(e)
-            let index = keysDown.indexOf(e.code)
-            keysDown.splice(index, 1)
+            let index = keysDownThisFrame.indexOf(e.code)
+            keysDownThisFrame.splice(index, 1)
         }
 
-        function keydown(e) {
+        function keyDown(e) {
             console.log(e)
-            if (!keysDown.includes(e.code)) {
-                keysDown.push(e.code)
+            if(!keysDownThisFrame.includes(e.code)){
+                keysDownThisFrame.push(e.code)
             }
         }
+
 
         function setup() {
-            document.addEventListener("keydown", keydown)
-            document.addEventListener("keyup", keyup)
+            document.addEventListener("keydown", keyDown)
+            document.addEventListener("keyup", keyUp)
+
 
             let canvas = document.querySelector('#canv')
             let ctx = canvas.getContext("2d")
