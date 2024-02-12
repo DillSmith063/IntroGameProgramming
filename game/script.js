@@ -20,7 +20,7 @@ class MainScene extends Scene {
         this.y = 0
     }
 
-    update() {
+    update(ctx) {
         let speed = 100
     
         if (keysDownThisFrame.includes("ArrowLeft") || keysDownThisFrame.includes("KeyA")) {
@@ -45,7 +45,7 @@ class MainScene extends Scene {
     
         Globals.score++
     
-        if (this.x < 0) {
+        if (this.x < 0 || this.x > ctx.canvas.width - 200 || this.y < 0 || this.y > ctx.canvas.height - 200) {
             currentScene = new DeadScene()
         }
 
@@ -64,14 +64,22 @@ class MainScene extends Scene {
         ctx.rect(50, 50, ctx.canvas.width - 100, ctx.canvas.height - 100)
         ctx.fill()
 
-        //Draw the circle with a green interior
-        //and purple outline
+        //create enemy "model"
+        ctx.fillStyle = "white"
+        ctx.strokeStyle = "red"
+        ctx.beginPath();
+        ctx.lineWidth = 5
+        ctx.arc(500, 300, 50, 50, 0, Math.PI * 2)
+        ctx.fill()
+        ctx.stroke()
+
+        //create player "model"
         if(currentShape === 'circle'){
             ctx.beginPath();
             ctx.fillStyle = "black"
             ctx.strokeStyle = "red"
             ctx.lineWidth = 5
-            ctx.arc(ctx.canvas.width + this.x - 100, ctx.canvas.height + this.y - 100, 50, 50, 0, Math.PI * 2)
+            ctx.arc(this.x + 100, this.y + 100, 50, 50, 0, Math.PI * 2)
             ctx.fill()
             ctx.stroke()
         } else if(currentShape === 'rectangle') {
@@ -79,13 +87,9 @@ class MainScene extends Scene {
             ctx.fillStyle = "black"
             ctx.strokeStyle = "blue"
             ctx.lineWidth = 5
-            ctx.fillRect(ctx.canvas.width + this.x - 150, ctx.canvas.height + this.y - 150, 100, 100)
-            ctx.strokeRect(ctx.canvas.width + this.x - 150, ctx.canvas.height + this.y - 150, 100, 100)
+            ctx.fillRect(150 + this.x - 100, 150 + this.y - 100, 100, 100)
+            ctx.strokeRect(150 + this.x - 100, 150 + this.y - 100, 100, 100)
         }
-
-        ctx.fillStyle = "white"
-        ctx.font = "30px Times"
-        ctx.fillText(Globals.score, 0, 30)
     }
 }
 
@@ -103,7 +107,6 @@ class DeadScene extends Scene {
         }
 
         if(keysDownThisFrame.includes("Enter")) {
-            Globals.score = 0
             currentScene = new MainScene()
         }
     }
@@ -129,10 +132,6 @@ class DeadScene extends Scene {
             ctx.fillStyle = "red"
             ctx.fillText("Press Enter to Continue Your Journey", textX, textY + 100)
         }
-
-        ctx.fillStyle = "white"
-        ctx.font = "30px Times"
-        ctx.fillText(Globals.score, 0, 30)
     }
 }
 
@@ -147,10 +146,10 @@ let keysUpThisFrame = []
 let currentShape = 'circle'
 
 function gameLoop() {
-    currentScene.update()
-
     let canvas = document.querySelector("#canv")
     let ctx = canvas.getContext("2d")
+
+    currentScene.update(ctx)
     currentScene.draw(ctx)
 }
 
