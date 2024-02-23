@@ -11,8 +11,8 @@ class Engine {
     }
 
     static setup() {
-        document.addEventListener("keydown", keydown)
-        document.addEventListener("keyup", keyup)
+        document.addEventListener("keydown", Input.keydown)
+        document.addEventListener("keyup", Input.keyup)
 
         setInterval(Engine.gameLoop, Time.ms)
     }

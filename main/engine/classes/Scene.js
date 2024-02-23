@@ -4,10 +4,10 @@ class Scene {
         this.backgroundColor = backgroundColor
     }
 
-    update(){
+    update(ctx){
         for(const gameObject of this.gameObjects){
             if(gameObject.update){
-                gameObject.update()
+                gameObject.update(ctx)
             }
         }
     }
@@ -18,7 +18,7 @@ class Scene {
 
         for(const gameObject of this.gameObjects){
             if(gameObject.draw){
-                gameObecjt.draw(ctx)
+                gameObject.draw(ctx)
             }
         }
     }

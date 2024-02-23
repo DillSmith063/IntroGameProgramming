@@ -1,4 +1,4 @@
-class Rectangle extends Transform {
+class Rectangle extends Component {
     draw(ctx){
         ctx.beginPath();
         ctx.fillStyle = "black"
