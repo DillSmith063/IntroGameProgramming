@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Game Time</title>
+    <link href = "style.css" rel = stylesheet>
+</head>
+
+<body>
+    <canvas id="canv"></canvas>
+
+    <script type="module">
+        import "/engine/Engine.js"
+        import "./scenes/MainScene.js"
+        import "./scenes/DeathScene.js"
+
+        Engine.currentScene = new MainScene()
+        Engine.setup()
+    </script>
+</body>
+
+</html>

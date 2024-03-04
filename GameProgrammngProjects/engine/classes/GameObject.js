@@ -1,6 +1,7 @@
 class GameObject {
     components = []
     constructor() {
+        this.name = name
         this.addComponent(new Transform())
     }
 
@@ -13,6 +14,14 @@ class GameObject {
         component.parent = this
     }
 
+    start(ctx){
+        for(let component of this.components){
+            if(component.start){
+                component.start(ctx)
+            }
+        }
+    }
+
     update(ctx) {
         for(let component of this.components) {
             if(component.update) {
@@ -21,7 +30,7 @@ class GameObject {
         }
     }
 
-    draw() {
+    draw(ctx) {
         for(let component of this.components) {
             if(component.draw) {
                 component.draw(ctx)
@@ -29,3 +38,6 @@ class GameObject {
         }
     }
 }
+
+windows.GameObject = GameObject
+export default GameObject
