@@ -1,6 +1,6 @@
 class GameObject {
     components = []
-    constructor() {
+    constructor(name) {
         this.name = name
         this.addComponent(new Transform())
     }
@@ -37,7 +37,19 @@ class GameObject {
             }
         }
     }
+
+    static find(gameObjectName) {
+        return Engine.currentScene.gameObjects.find(go => go.name == gameObjectName)
+    }
+
+    static filter(gameObjectName) {
+        return Engine.currentScene.gameObjects.filter(go => go.name == gameObjectName)
+    }
+
+    static instantiate(gameObject) {
+        Engine.currentScene.gameObjects.push(gameObject)
+    }
 }
 
-windows.GameObject = GameObject
+window.GameObject = GameObject
 export default GameObject

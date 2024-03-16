@@ -17,5 +17,5 @@ class Collisions {
     }*/
 }
 
-windows.Collisions = Collisions
+window.Collisions = Collisions
 export default Collisions

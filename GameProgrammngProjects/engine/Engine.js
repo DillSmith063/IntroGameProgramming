@@ -1,15 +1,15 @@
-import "/engine/classes/Component.js"
-import "/engine/classes/GameObject.js"
-import "/engine/classes/Scene.js"
+import "/GameProgrammngProjects/engine/classes/Component.js"
+import "/GameProgrammngProjects/engine/classes/GameObject.js"
+import "/GameProgrammngProjects/engine/classes/Scene.js"
 
-import "/engine/components/Circle.js"
-import "/engine/components/Rectangle.js"
-import "/engine/components/Transform.js"
+import "/GameProgrammngProjects/engine/components/Circle.js"
+import "/GameProgrammngProjects/engine/components/Rectangle.js"
+import "/GameProgrammngProjects/engine/components/Transform.js"
 
-import "/engine/static/Transform.js"
-import "/engine/static/Globals.js"
-import "/engine/static/Input.js"
-import "/engine/static/Time.js"
+import "/GameProgrammngProjects/engine/static/Collisions.js"
+import "/GameProgrammngProjects/engine/static/Globals.js"
+import "/GameProgrammngProjects/engine/static/Input.js"
+import "/GameProgrammngProjects/engine/static/Time.js"
 
 
 class Engine {
@@ -34,4 +34,4 @@ class Engine {
 }
 
 window.Engine = Engine
-export default Engine
+export default Engine;
