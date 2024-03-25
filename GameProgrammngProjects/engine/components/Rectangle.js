@@ -9,7 +9,6 @@ class Rectangle extends Component {
         ctx.fillStyle = this.fill
         ctx.strokeStyle = this.stroke
         ctx.beginPath();
-        ctx.lineWidth = 5
         ctx.rect(
             this.transform.x - this.transform.scaleX / 2,
             this.transform.y - this.transform.scaleY / 2,
