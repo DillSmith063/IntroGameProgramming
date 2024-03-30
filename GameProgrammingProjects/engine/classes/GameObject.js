@@ -32,6 +32,10 @@ class GameObject {
         }
     }
 
+    getComponent(name){
+        return this.components.find(c => c.constructor.name == name)
+    }
+
     draw(ctx) {
         for(let component of this.components) {
             if(component.draw) {

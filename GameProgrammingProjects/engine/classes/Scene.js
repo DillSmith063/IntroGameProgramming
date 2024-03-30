@@ -10,7 +10,9 @@ class Scene {
     _start(ctx){
         if(!this.hasStarted){
             this.hasStarted = true
-            this.start(ctx)
+            if(this.start){
+                this.start(ctx)
+            }
             for(const gameObject of this.gameObjects){
                 if(gameObject.start){
                     gameObject.start(ctx)
