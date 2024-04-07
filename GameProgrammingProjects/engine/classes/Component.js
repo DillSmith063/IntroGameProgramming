@@ -6,4 +6,3 @@ class Component {
 }
 
 window.Component = Component
-export default Component

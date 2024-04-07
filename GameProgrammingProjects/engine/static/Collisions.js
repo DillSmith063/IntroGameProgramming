@@ -1,20 +1,25 @@
 class Collisions {
-    static isCircleCirleCollision(cOne, cTwo, rOne, rTwo){
-        let distance = Math.sqrt((cOne.x - cTwo.x)**2 + (cOne.y - cTwo.y)**2)
-        if(rOne + rTwo > distance) {
+    static isCircleCirleCollision(centerOne, centerTwo, radOne, radTwo){
+        let distance = Math.sqrt((centerOne.x - centerTwo.x)**2 + (centerOne.y - centerTwo.y)**2)
+        if(radOne + radTwo > distance) {
             return true
         } else {
             return false
         }
     }
 
-    /*static isCircleRectangleCollision(){
-
+    static isRectangleRectangleCollision(rectOneCenter, rectOneWidth, rectOneHeight, rectTwoCenter, rectTwoWidth, rectTwoHeight){
+        if(
+            rectOneCenter.x - rectOneWidth / 2 > rectTwoCenter.x + rectTwoWidth / 2 ||
+            rectOneCenter.x + rectOneWidth / 2 > rectTwoCenter.x - rectTwoWidth / 2 ||
+            rectOneCenter.y - rectOneHeight / 2 > rectTwoCenter.y + rectTwoHeight / 2 ||
+            rectOneCenter.y + rectOneHeight / 2 > rectTwoCenter.y - rectTwoHeight / 2 
+        ){
+            return false
+        } else {
+            return true
+        }
     }
-
-    static isRectangleRectangleCollision(){
-
-    }*/
 }
 
 window.Collisions = Collisions

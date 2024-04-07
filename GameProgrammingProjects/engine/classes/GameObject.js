@@ -1,6 +1,8 @@
 class GameObject {
     components = []
 
+    layer = 0
+
     constructor(name) {
         this.name = name
         this.addComponent(new Transform())
@@ -32,9 +34,6 @@ class GameObject {
         }
     }
 
-    getComponent(name){
-        return this.components.find(c => c.constructor.name == name)
-    }
 
     draw(ctx) {
         for(let component of this.components) {
@@ -42,6 +41,10 @@ class GameObject {
                 component.draw(ctx)
             }
         }
+    }
+
+    getComponent(name){
+        return this.components.find(c => c.constructor.name == name)
     }
 
     static find(gameObjectName) {
@@ -66,4 +69,3 @@ class GameObject {
 }
 
 window.GameObject = GameObject
-export default GameObject

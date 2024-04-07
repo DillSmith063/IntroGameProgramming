@@ -14,4 +14,3 @@ class Text extends Component {
 }
 
 window.Text = Text
-export default Text
