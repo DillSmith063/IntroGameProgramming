@@ -11,7 +11,7 @@ import "/GameProgrammingProjects/engine/static/Collisions.js"
 import "/GameProgrammingProjects/engine/static/Globals.js"
 import "/GameProgrammingProjects/engine/static/Input.js"
 import "/GameProgrammingProjects/engine/static/Time.js"
-import "/GameProgrammingProjects/engine//static/EventSystem.js"
+import "/GameProgrammingProjects/engine/static/EventSystem.js"
 
 
 class Engine {
@@ -22,10 +22,17 @@ class Engine {
         canvas.width = window.innerWidth
         canvas.height = window.innerHeight
     
-        Engine.currentScene._start(ctx)
-        Engine.currentScene.update(ctx)
-        Engine.currentScene.gameObjects = Engine.currentScene.gameObjects.filter(go => go.markForDestory == false)
         Engine.currentScene.draw(ctx)
+
+        Engine.currentScene._start(ctx)
+
+        Engine.currentScene.update(ctx)
+
+        Engine.currentScene.gameObjects = Engine.currentScene.gameObjects.filter(go => go.markForDestory == false)
+
+        Input.update()
+
+        Time.update(ctx)
     }
 
     static setup() {

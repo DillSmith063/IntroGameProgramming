@@ -14,4 +14,3 @@ class EventSystem {
 }
 
 window.EventSystem = EventSystem
-export default EventSystem
