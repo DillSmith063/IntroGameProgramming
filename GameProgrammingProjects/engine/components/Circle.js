@@ -1,5 +1,5 @@
 class Circle extends Component {
-    constructor(fill = "red", stroke = "black"){
+    constructor(fill = "white", stroke = "black"){
         super()
         this.fill = fill
         this.stroke = stroke
