@@ -1,5 +1,5 @@
 class Rectangle extends Component {
-    constructor(fill = "blue", stroke = "black"){
+    constructor(fill = "white", stroke = "black"){
         super()
         this.fill = fill
         this.stroke = stroke

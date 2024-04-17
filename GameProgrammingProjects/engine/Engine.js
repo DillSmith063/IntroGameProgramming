@@ -19,7 +19,7 @@ import "/GameProgrammingProjects/engine/static/CollisionsGeometric.js"
 import "/GameProgrammingProjects/engine/static/Globals.js"
 import "/GameProgrammingProjects/engine/static/Input.js"
 import "/GameProgrammingProjects/engine/static/Time.js"
-import "/GameProgrammingProjects/engine//static/EventSystem.js"
+import "/GameProgrammingProjects/engine/static/EventSystem.js"
 
 
 class Engine {

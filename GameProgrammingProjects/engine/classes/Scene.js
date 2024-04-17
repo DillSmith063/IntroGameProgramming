@@ -12,10 +12,6 @@ class Scene {
             this.hasStarted = true
         }
 
-        let cameraGameObject = new Camera()
-
-        GameObject.instantiate(cameraGameObject)
-
         if(this.start){
             this.start(ctx)
         }
@@ -39,8 +35,8 @@ class Scene {
         ctx.fillStyle = this.backgroundColor
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
-        ctx.save()
-        ctx.translate(-Camera.main.transform.x, -Camera.main.transform.y)
+        //ctx.save()
+        //ctx.translate(-Camera.main.transform.x, -Camera.main.transform.y)
 
         let sortedGameObjects = [...this.gameObjects]
         sortedGameObjects = sortedGameObjects.sort((a, b) => a.layer - b.layer)
