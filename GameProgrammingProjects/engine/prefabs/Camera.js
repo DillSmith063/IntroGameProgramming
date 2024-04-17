@@ -1,19 +1,11 @@
 class Camera extends GameObject {
-    constructor(){
-        super("camera")
-    }
+   static {
+    Camera._main = new Camera()
+   }
 
-    start(){
-        this.addComponent(new Camera())
-    }
-
-    static{
-        Camera._main = new Camera()
-    }
-
-    static get main(){
-        return Camera._main
-    }
+   static get main(){
+    return Camera._main
+   }
 }
 
 window.Camera = Camera

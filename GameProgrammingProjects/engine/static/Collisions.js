@@ -20,6 +20,17 @@ class Collisions {
             return true
         }
     }
+
+    static isPointRectangleCollision(point, rectangleCenter, width, height) {
+        if (
+            point.x > rectangleCenter.x - width / 2 &&
+            point.x < rectangleCenter.x + width / 2 &&
+            point.y > rectangleCenter.y - height / 2 &&
+            point.y < rectangleCenter.y + height / 2
+        )
+            return true;
+        return false;
+    }
 }
 
 window.Collisions = Collisions
