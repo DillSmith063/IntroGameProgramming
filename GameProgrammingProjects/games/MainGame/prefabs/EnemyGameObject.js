@@ -5,7 +5,9 @@ class EnemyGameObject extends GameObject{
     
     start(){
         this.health = 1
-        //this.addComponent(new EnemyComponent())
+        this.attack = 1
+        this.speed = 1
+
         this.addComponent(new Circle("red", "black"))
     }
 }

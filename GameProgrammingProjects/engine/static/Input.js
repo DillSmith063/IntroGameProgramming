@@ -1,17 +1,6 @@
 class Input {
     static keysDown = []
     static keysUpThisFrame = []
-    static mousePosition = { x: 0, y: 0 }
-    static mouseUpThisFrame = false;
-
-    static mousemove(e) {
-        Input.mousePosition.x = e.clientX;
-        Input.mousePosition.y = e.clientY;
-    }
-
-    static mouseup(e){
-        Input.mouseUpThisFrame = true;
-    }
 
     static keyup(e) {
         let index = Input.keysDown.indexOf(e.code)
@@ -26,7 +15,6 @@ class Input {
     }
 
     static update(){
-        Input.mouseUpThisFrame = false
         Input.keysUpThisFrame = []
     }
 }
