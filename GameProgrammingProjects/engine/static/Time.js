@@ -1,5 +1,5 @@
 class Time {
-    static ms = 20
+    static ms = 100
     static fps = 1000 / Time.ms
     static deltaTime = Time.ms / 1000
     static timePassed = 0
@@ -9,4 +9,3 @@ class Time {
 }
 
 window.Time = Time
-export default Time;
