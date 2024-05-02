@@ -1,10 +1,8 @@
-import "../components/KeyboardComponent.js"
-import "../prefabs/EnemyGameObject.js"
-import "../prefabs/PlayerGameObject.js"
-import "../prefabs/HealthupGameObject.js"
-import "../prefabs/SpeedUpGameObject.js"
-import "../prefabs/AttackUpGameObject.js"
+import "../prefabs/Button.js"
 import "../prefabs/RectanglePrefab.js"
+import "../prefabs/PointPrefab.js"
+import "../components/AssignNumberComponent.js"
+import "../components/FollowMouseComponent.js"
 
 class MainScene extends Scene {
     constructor() {
@@ -14,22 +12,25 @@ class MainScene extends Scene {
     }
 
     start(ctx){
-        
-        GameObject.instantiate(new PlayerGameObject, 500, 500, 50)
+        // Instantiate buttons
+        GameObject.instantiate(new Button(), 300, 200, 50, 50);
+        GameObject.instantiate(new Button(), 600, 200, 50, 50);
+        GameObject.instantiate(new Button(), 900, 200, 50, 50);
+        GameObject.instantiate(new Button(), 1200, 200, 50, 50);
+        GameObject.instantiate(new Button(), 1500, 200, 50, 50);
 
-        GameObject.instantiate(new RectanglePrefab, 1200, 200, 75, 75)
-        
-        GameObject.instantiate(new RectanglePrefab, 300, 200, 75, 75)
+        GameObject.instantiate(new RectanglePrefab(), 300, 200, 75, 75);
+        GameObject.instantiate(new RectanglePrefab(), 600, 200, 75, 75);
+        GameObject.instantiate(new RectanglePrefab(), 900, 200, 75, 75);
+        GameObject.instantiate(new RectanglePrefab(), 1200, 200, 75, 75);
+        GameObject.instantiate(new RectanglePrefab(), 1500, 200, 75, 75);
 
-        GameObject.instantiate(new RectanglePrefab, 750, 200, 75, 75)
+        GameObject.instantiate(new PointPrefab())
 
-        GameObject.instantiate(new HealthUpGameObject, 1200, 200, 50, 50)
-
-        GameObject.instantiate(new SpeedUpGameObject, 300, 200, 50, 50)
-
-        GameObject.instantiate(new AttackUpGameObject, 750, 200, 50, 50)
-
-        
+        // Instantiate an object with the AssignNumberComponent
+        let assigner = new GameObject("Assigner");
+        assigner.addComponent(new AssignNumberComponent());
+        GameObject.instantiate(assigner);
     }
 }
 

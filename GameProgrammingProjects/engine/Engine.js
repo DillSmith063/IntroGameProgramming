@@ -6,6 +6,7 @@ import "/GameProgrammingProjects/engine/components/Circle.js"
 import "/GameProgrammingProjects/engine/components/Rectangle.js"
 import "/GameProgrammingProjects/engine/components/Text.js"
 import "/GameProgrammingProjects/engine/components/Transform.js"
+import "/GameProgrammingProjects/engine/components/Point.js"
 
 import "/GameProgrammingProjects/engine/geometry/Circle2.js"
 import "/GameProgrammingProjects/engine/geometry/Line2.js"
