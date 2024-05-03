@@ -21,17 +21,17 @@ class Scene {
     _start(ctx){
         if(!this.hasStarted){
             this.hasStarted = true
-        }
-
-        if(this.start){
-            this.start(ctx)
-        }
-
-        for(const gameObject of this.gameObjects){
-            if(gameObject.start){
-                gameObject.start(ctx)
+        
+            if(this.start){
+                this.start(ctx)
             }
-        }
+
+            for(const gameObject of this.gameObjects){
+                if(gameObject.start){
+                    gameObject.start(ctx)
+                }
+            }
+        }   
     }
 
     update(ctx){
