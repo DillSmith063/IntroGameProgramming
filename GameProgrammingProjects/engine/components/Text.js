@@ -9,7 +9,7 @@ class Text extends Component {
     draw(ctx){
         ctx.fillStyle = this.fill
         ctx.font = this.font
-        ctx.transform(this.text, this.transform.x, this.transform.y)
+        ctx.fillText(this.text, this.transform.x, this.transform.y)
     }
 }
 
