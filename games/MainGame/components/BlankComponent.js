@@ -3,21 +3,24 @@ class BlankComponent extends Component {
     super(name)
     this.x = x
     this.y = y
-    this.buttonModel = new ButtonModel()
     EventSystem.registerListener(this)
   }
 
   handleEvent(event){
     if(event.name == "Play"){
-        let [x, y] = event.args
-        let result = this.buttonModel.getGameResult(x, y)
-        if(result == ButtonModel.RESULT_WIN){
-            Engine.currentScene = new WinScene()
-        } else if(result == ButtonModel.RESULT_LOSE){
-            Engine.currentScene = new LoseScene()
-        } else {
-            console.log("Game in progress")
+      if(this.x == event.args[0] && this.y ==  event.args[1]){
+        console.log("destroy")
+        GameObject.destroy(this.parent)
+
+        let toAdd
+        if(MainScene.model.getGameResult(this.x, this.y) == ButtonModel.IN_PROGRESS){
+          toAdd = new SafePrefab(this.x, this.y)
+        } else if(MainScene.model.getGameResult(this.x, this.y) == ButtonModel.WIN){
+          Engine.currentScene = new WinScene()
+        } else if(MainScene.model.getGameResult(this.x, this.y) == ButtonModel.LOSE){
+          Engine.currentScene = new LoseScene()
         }
+      }
     }
   }
 

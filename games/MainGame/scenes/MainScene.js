@@ -3,12 +3,14 @@ import "../button-model-events.js"
 import "../prefabs/BlankPrefab.js"
 import "../prefabs/BoardLinePrefab.js"
 import "../components/BlankComponent.js"
+import "./WinScene.js"
+import "./LoseScene.js"
 
 class MainScene extends Scene {
     static model;
     constructor() {
       super("lightgray")
-      MainScene.model = new ButtonModel()
+      MainScene.model = new ButtonModelEvents()
     }
     start(ctx) {
       //Draw the board

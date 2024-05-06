@@ -1,23 +1,20 @@
 class ButtonModel{
     board = []
-    static PLAYER_ONE = "X"
-    static PLAYER_TWO = "O"
     static BLANK = "_"
     static FAIL = "FAIL"
 
-    static RESULT_PLAYER_ONE_WIN = "PLAYER_ONE_WIN"
-    static RESULT_PLAYER_TWO_WIN = "PLAYER_TWO_WIN"
-    static RESULT_IN_PROGRESS = "IN_PROGRESS"
+    static WIN = "WIN"
+    static LOSE = "LOSE"
+    static IN_PROGRESS = "IN_PROGRESS"
 
     constructor(){
-        for(let x = 0; x < 1; x++){
+        for(let x = 0; x < 5; x++){
             let newColumn = []
-            for(let y = 0; y < 5; y++){
+            for(let y = 0; y < 1; y++){
                 newColumn.push(ButtonModel.BLANK)
             }
             this.board.push(newColumn)
         }
-
         this.setFail()
     }
 
@@ -68,22 +65,23 @@ class ButtonModel{
     }
 
     getGameResult(x, y){
-        if(this.isFail(x, y)){
-            return ButtonModel.RESULT_LOSE;
-        }
-    
-        let blankCount = 0;
+        let countSafe = 0
+        let countFail = 0
+
         for(let x = 0; x < 5; x++){
-            if(this.isBlank(x, 0)){
-                blankCount++;
+            if(this.getAt(x, y) == ButtonModel.BLANK){
+                countSafe++
+            } else if(this.getAt(x, y) == ButtonModel.FAIL){
+                countFail++
             }
         }
-    
-        // If the only blank spot left is the bomb, the game is won
-        if(blankCount == 1 && this.isFail(x, y)){
-            return ButtonModel.RESULT_WIN;
+
+        if(countSafe == 4 && countFail == 0){   
+            return ButtonModel.WIN
+        } else if(countFail == 1){
+            return ButtonModel.LOSE
         } else {
-            return ButtonModel.RESULT_IN_PROGRESS;
+            return ButtonModel.IN_PROGRESS
         }
     }
 
@@ -95,21 +93,18 @@ class ButtonModel{
         this.board[y][x] = play
     }
 
-    getNextTurn(){
-        let countX = 0
-        let countO = 0
-        for(let x = 0; x< 3; x++){
-          for(let y = 0; y< 3; y++){
-            if(this.getAt(x,y) == ButtonModel.PLAYER_ONE)
-              countX++;
-            else if(this.getAt(x,y) == ButtonModel.PLAYER_TWO)
-              countO++;
-          }
+   /*get(){
+        let countSafe = 0
+        let countFail = 0
+
+        for(let x = 0; x < 5; x++){
+            if(this.getAt(x, y) = ButtonModel.BLANK){
+                countSafe++
+            } else if(this.getAt(x, y) = ButtonModel.FAIL){
+                countFail++
+            }
         }
-        if(countX < countO) throw new Error("Invalid board state");
-        if(countX == countO) return ButtonModel.PLAYER_ONE
-        return ButtonModel.PLAYER_TWO
-      }
+    }*/
 
     toString(){
         let toReturn = "";
