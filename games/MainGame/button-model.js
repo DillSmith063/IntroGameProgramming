@@ -1,13 +1,12 @@
 class ButtonModel{
     board = []
-    static SAFE = "SAFE"
-    static BOMB = "BOMB"
-    static WIN_STATE = "WIN"
-    static LOSE_STATE = "LOSE"
+    static PLAYER_ONE = "X"
+    static PLAYER_TWO = "O"
     static BLANK = "_"
+    static FAIL = "FAIL"
 
-    static RESULT_WIN = "WIN"
-    static RESULT_LOSE = "LOSE"
+    static RESULT_PLAYER_ONE_WIN = "PLAYER_ONE_WIN"
+    static RESULT_PLAYER_TWO_WIN = "PLAYER_TWO_WIN"
     static RESULT_IN_PROGRESS = "IN_PROGRESS"
 
     constructor(){
@@ -19,11 +18,11 @@ class ButtonModel{
             this.board.push(newColumn)
         }
 
-        this.isBomb()
+        this.setFail()
     }
 
     isValid(x, y){
-        return x >= 0 && x < 1 && y >= 0 && y < 5
+        return y == 0 && x >= 0 && x < 5
     }
 
     checkCoordinate(x, y){
@@ -34,21 +33,19 @@ class ButtonModel{
 
     getAt(x, y){
         this.checkCoordinate(x, y)
-        return this.board[x][y]
+        return this.board[y][x]
     }
 
     isBlank(x, y){
         this.checkCoordinate(x, y)
-        return this.board[x][y] == ButtonModel.BLANK
+        return this.board[y][x] == ButtonModel.BLANK
     }
 
-    isBomb(){
+    setFail(){
         let blanks = [];
-        for(let x = 0; x < 1; x++){
-            for(let y = 0; y < 5; y++){
-                if(this.board[x][y] == ButtonModel.BLANK){
-                    blanks.push({x: x, y: y});
-                }
+        for(let x = 0; x < 5; x++){
+            if(this.board[0][x] == ButtonModel.BLANK){
+                blanks.push({x: x, y: 0})
             }
         }
 
@@ -57,7 +54,12 @@ class ButtonModel{
         let randomIndex = Math.floor(Math.random() * blanks.length);
         let randomBlank = blanks[randomIndex];
 
-        this.board[randomBlank.x][randomBlank.y] = ButtonModel.BOMB;
+        this.board[randomBlank.y][randomBlank.x] = ButtonModel.FAIL;
+    }
+
+    isFail(x, y){
+        this.checkCoordinate(x, y)
+        return this.board[y][x] == ButtonModel.BOMB
     }
 
     isGameOver(){
@@ -66,21 +68,19 @@ class ButtonModel{
     }
 
     getGameResult(x, y){
-        if(this.isBomb(x, y)){
+        if(this.isFail(x, y)){
             return ButtonModel.RESULT_LOSE;
         }
     
         let blankCount = 0;
-        for(let x = 0; x < 1; x++){
-            for(let y = 0; y < 5; y++){
-                if(this.isBlank(x, y)){
-                    blankCount++;
-                }
+        for(let x = 0; x < 5; x++){
+            if(this.isBlank(x, 0)){
+                blankCount++;
             }
         }
     
         // If the only blank spot left is the bomb, the game is won
-        if(blankCount == 1 && this.isBomb(x, y)){
+        if(blankCount == 1 && this.isFail(x, y)){
             return ButtonModel.RESULT_WIN;
         } else {
             return ButtonModel.RESULT_IN_PROGRESS;
@@ -92,8 +92,24 @@ class ButtonModel{
         if(!this.isBlank(x,y)) throw new Error("Cannot play on a non-blank square.")
         if(this.isGameOver()) throw new Error("The cannot go if the game is already over.")
         let play = this.getNextTurn()
-        this.board[x][y] = play
+        this.board[y][x] = play
     }
+
+    getNextTurn(){
+        let countX = 0
+        let countO = 0
+        for(let x = 0; x< 3; x++){
+          for(let y = 0; y< 3; y++){
+            if(this.getAt(x,y) == ButtonModel.PLAYER_ONE)
+              countX++;
+            else if(this.getAt(x,y) == ButtonModel.PLAYER_TWO)
+              countO++;
+          }
+        }
+        if(countX < countO) throw new Error("Invalid board state");
+        if(countX == countO) return ButtonModel.PLAYER_ONE
+        return ButtonModel.PLAYER_TWO
+      }
 
     toString(){
         let toReturn = "";
