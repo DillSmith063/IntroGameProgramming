@@ -18,10 +18,10 @@ class MainScene extends Scene {
     const margin = 10;
     const barWidth = 5;
     const barHeight = 100;
-    GameObject.instantiate(new BoardLinePrefab(), barHeight/3 + margin, barHeight/2 + margin, barWidth, barHeight)
-    GameObject.instantiate(new BoardLinePrefab(), 2*barHeight/3 + margin, barHeight/2 + margin, barWidth, barHeight)
-    GameObject.instantiate(new BoardLinePrefab(), barHeight/2+margin,barHeight/3 + margin, barHeight, barWidth)
-    GameObject.instantiate(new BoardLinePrefab(), barHeight/2+margin, 2*barHeight/3+margin, barHeight, barWidth)
+    GameObject.instantiate(new BoardLinePrefab(), barHeight / 3 + margin, barHeight / 2 + margin, barWidth, barHeight)
+    GameObject.instantiate(new BoardLinePrefab(), 2 * barHeight / 3 + margin, barHeight / 2 + margin, barWidth, barHeight)
+    GameObject.instantiate(new BoardLinePrefab(), barHeight / 2 + margin,barHeight / 3 + margin, barHeight, barWidth)
+    GameObject.instantiate(new BoardLinePrefab(), barHeight / 2 + margin, 2 * barHeight / 3 + margin, barHeight, barWidth)
 
     //Draw the button
     let buttonSize = 20;
@@ -35,9 +35,6 @@ class MainScene extends Scene {
         buttonSize)
       }
     }
-
-
-
   }
 }
 
