@@ -1,29 +1,17 @@
 class ButtonModel{
-    board = []
     static BLANK = "_"
     static FAIL = "FAIL"
-
     static WIN = "WIN"
     static LOSE = "LOSE"
     static IN_PROGRESS = "IN_PROGRESS"
 
     constructor(){
-        for(let x = 0; x < 5; x++){
-            let newColumn = []
-            for(let y = 0; y < 1; y++){
-                newColumn.push(ButtonModel.BLANK)
-            }
-            this.board.push(newColumn)
-        }
+        this.board = [Array(5).fill(ButtonModel.BLANK)]
         this.setFail()
     }
 
-    isValid(x, y){
-        return y == 0 && x >= 0 && x < 5
-    }
-
     checkCoordinate(x, y){
-        if(!this.isValid(x, y)){
+        if(y < 0 || y >= this.board.length || x < 0 || x >= this.board[0].length){
             throw new Error("Coordinate out of bounds")
         }
     }
@@ -34,88 +22,53 @@ class ButtonModel{
     }
 
     isBlank(x, y){
-        this.checkCoordinate(x, y)
         return this.board[y][x] == ButtonModel.BLANK
     }
 
     setFail(){
-        let blanks = [];
-        for(let x = 0; x < 5; x++){
-            if(this.board[0][x] == ButtonModel.BLANK){
-                blanks.push({x: x, y: 0})
+        try{
+            if(this.board[0][2] == ButtonModel.BLANK){
+                this.board[0][2] = ButtonModel.FAIL
+                console.log('Button at (2, 0) is set to FAIL')
             }
+        } catch(e){
+            console.log("FAIL not set properly")
         }
-
-        if(blanks.length === 0) return;
-
-        let randomIndex = Math.floor(Math.random() * blanks.length);
-        let randomBlank = blanks[randomIndex];
-
-        this.board[randomBlank.y][randomBlank.x] = ButtonModel.FAIL;
     }
 
     isFail(x, y){
         this.checkCoordinate(x, y)
-        return this.board[y][x] == ButtonModel.BOMB
+        return this.board[y][x] == ButtonModel.FAIL
     }
 
     isGameOver(){
         let state = this.getGameResult()
-        return state != ButtonModel.RESULT_IN_PROGRESS
+        return state != ButtonModel.IN_PROGRESS
     }
 
-    getGameResult(x, y){
-        let countSafe = 0
-        let countFail = 0
-
+    getGameResult(){
         for(let x = 0; x < 5; x++){
-            if(this.getAt(x, y) == ButtonModel.BLANK){
-                countSafe++
-            } else if(this.getAt(x, y) == ButtonModel.FAIL){
-                countFail++
+            let buttonState = this.getAt(x, 0);
+            if(buttonState == ButtonModel.BLANK){
+                return ButtonModel.IN_PROGRESS;
             }
         }
-
-        if(countSafe == 4 && countFail == 0){   
-            return ButtonModel.WIN
-        } else if(countFail == 1){
-            return ButtonModel.LOSE
-        } else {
-            return ButtonModel.IN_PROGRESS
-        }
+    
+        return ButtonModel.WIN;
     }
 
-    setAt(x,y){
+    setAt(x, y, newState){
         this.checkCoordinate(x,y)
         if(!this.isBlank(x,y)) throw new Error("Cannot play on a non-blank square.")
         if(this.isGameOver()) throw new Error("The cannot go if the game is already over.")
-        let play = this.getNextTurn()
-        this.board[y][x] = play
+        this.board[y][x] = newState
     }
-
-   /*get(){
-        let countSafe = 0
-        let countFail = 0
-
-        for(let x = 0; x < 5; x++){
-            if(this.getAt(x, y) = ButtonModel.BLANK){
-                countSafe++
-            } else if(this.getAt(x, y) = ButtonModel.FAIL){
-                countFail++
-            }
-        }
-    }*/
 
     toString(){
         let toReturn = "";
-        for(let y = 0; y < 3; y++){
-          for(let x = 0; x < 3; x++){
-            toReturn += this.board[x][y] + " "
-          }
-          toReturn += "\n"
+        for (let x = 0; x < 5; x++) {
+            toReturn += this.board[0][x] + " ";
         }
-        toReturn += "\n";
-        toReturn += this.getGameResult()
         return toReturn;
     }
 }

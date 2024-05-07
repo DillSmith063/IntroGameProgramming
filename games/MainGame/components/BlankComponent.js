@@ -7,18 +7,59 @@ class BlankComponent extends Component {
   }
 
   handleEvent(event){
-    if(event.name == "Play"){
-      if(this.x == event.args[0] && this.y ==  event.args[1]){
+    /*if(event.name == "Play"){
+      if(this.x == event.args[0] && this.y == event.args[1]){
+  
+        let buttonState = MainScene.model.getAt(this.x, this.y)
+        if(buttonState == ButtonModel.BLANK){
+          const barHeight = 100;
+          const margin = 15;
+          const buttonSize = 20;
+          let toAdd = new SafePrefab(this.x, this.y)
+          GameObject.instantiate(toAdd, 
+            this.x * barHeight + margin, 
+            this.y * barHeight + margin, 
+            buttonSize, 
+            buttonSize)
+          MainScene.model.setAt(this.x, this.y, ButtonModel.SAFE)
+        } else if(buttonState == ButtonModel.FAIL){
+          Engine.currentScene = new LoseScene()
+        }
+  
         console.log("destroy")
         GameObject.destroy(this.parent)
 
-        let toAdd
-        if(MainScene.model.getGameResult(this.x, this.y) == ButtonModel.IN_PROGRESS){
-          toAdd = new SafePrefab(this.x, this.y)
-        } else if(MainScene.model.getGameResult(this.x, this.y) == ButtonModel.WIN){
+        let gameResult = MainScene.model.getGameResult()
+        if(gameResult == ButtonModel.WIN){
           Engine.currentScene = new WinScene()
-        } else if(MainScene.model.getGameResult(this.x, this.y) == ButtonModel.LOSE){
+        }
+      }
+    }*/
+
+    if(event.name == "Play"){
+      if(this.x == event.args[0] && this.y == event.args[1]){
+        let buttonState = MainScene.model.getAt(this.x, this.y)
+        if(buttonState == ButtonModel.BLANK){
+          const barHeight = 100;
+          const margin = 15;
+          const buttonSize = 20;
+          let toAdd = new SafePrefab(this.x, this.y)
+          GameObject.instantiate(toAdd, 
+            this.x * barHeight / 3 + barHeight / 6 + margin, 
+            this.y * barHeight / 3 + barHeight / 6 + margin, 
+            buttonSize, 
+            buttonSize)
+          MainScene.model.setAt(this.x, this.y, ButtonModel.SAFE)
+        } else if(buttonState == ButtonModel.FAIL){
           Engine.currentScene = new LoseScene()
+        }
+  
+        console.log("destroy")
+        GameObject.destroy(this.parent)
+  
+        let gameResult = MainScene.model.getGameResult()
+        if(gameResult == ButtonModel.WIN){
+          Engine.currentScene = new WinScene()
         }
       }
     }

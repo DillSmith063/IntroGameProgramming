@@ -13,7 +13,7 @@ class Rectangle extends Component {
       this.transform.y - this.transform.scaleY / 2,
       this.transform.scaleX, this.transform.scaleY
     )
-    ctx.fill();
+    ctx.fill()
     ctx.stroke()
   }
   asGeometry(){
