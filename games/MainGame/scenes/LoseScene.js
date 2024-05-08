@@ -4,7 +4,11 @@ class LoseScene extends Scene{
     }
 
     start(ctx){
-        console.log("LOSE")
+        let winTextGameObject = new GameObject()
+        winTextGameObject.transform.x = 600
+        winTextGameObject.transform.y = 300
+        winTextGameObject.addComponent(new Text("You Lose :(", "100px Papyrus", "black"))
+        this.gameObjects.push(winTextGameObject)
     }
 }
 

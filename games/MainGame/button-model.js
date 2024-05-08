@@ -26,10 +26,12 @@ class ButtonModel{
     }
 
     setFail(){
+        let random = Math.floor(Math.random() * 5)
+
         try{
-            if(this.board[0][2] == ButtonModel.BLANK){
-                this.board[0][2] = ButtonModel.FAIL
-                console.log('Button at (2, 0) is set to FAIL')
+            if(this.board[0][random] == ButtonModel.BLANK){
+                this.board[0][random] = ButtonModel.FAIL
+                console.log(`Button at (${random}, 0) is set to FAIL`)
             }
         } catch(e){
             console.log("FAIL not set properly")

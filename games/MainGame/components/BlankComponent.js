@@ -7,35 +7,6 @@ class BlankComponent extends Component {
   }
 
   handleEvent(event){
-    /*if(event.name == "Play"){
-      if(this.x == event.args[0] && this.y == event.args[1]){
-  
-        let buttonState = MainScene.model.getAt(this.x, this.y)
-        if(buttonState == ButtonModel.BLANK){
-          const barHeight = 100;
-          const margin = 15;
-          const buttonSize = 20;
-          let toAdd = new SafePrefab(this.x, this.y)
-          GameObject.instantiate(toAdd, 
-            this.x * barHeight + margin, 
-            this.y * barHeight + margin, 
-            buttonSize, 
-            buttonSize)
-          MainScene.model.setAt(this.x, this.y, ButtonModel.SAFE)
-        } else if(buttonState == ButtonModel.FAIL){
-          Engine.currentScene = new LoseScene()
-        }
-  
-        console.log("destroy")
-        GameObject.destroy(this.parent)
-
-        let gameResult = MainScene.model.getGameResult()
-        if(gameResult == ButtonModel.WIN){
-          Engine.currentScene = new WinScene()
-        }
-      }
-    }*/
-
     if(event.name == "Play"){
       if(this.x == event.args[0] && this.y == event.args[1]){
         let buttonState = MainScene.model.getAt(this.x, this.y)
@@ -50,12 +21,21 @@ class BlankComponent extends Component {
             buttonSize, 
             buttonSize)
           MainScene.model.setAt(this.x, this.y, ButtonModel.SAFE)
+
         } else if(buttonState == ButtonModel.FAIL){
           Engine.currentScene = new LoseScene()
         }
   
         console.log("destroy")
         GameObject.destroy(this.parent)
+
+        EventSystem.fireEvent({
+          origin: this,
+          name: "scoreUpdate",
+          args: [this.parent.scoreValue]
+        })
+
+        console.log("score update event fired")
   
         let gameResult = MainScene.model.getGameResult()
         if(gameResult == ButtonModel.WIN){
